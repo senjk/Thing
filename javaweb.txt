@@ -1,0 +1,54 @@
+javaweb
+
+1、登录页面（html）
+   a、form表单
+   b、label  用户名 密码
+   c、input  用于输入内容
+   d、submit 提交 action 提交方式 doget dopost  onclick事件 function函数（类似于java学的方法）
+   e、URL： 1、action  2.ajax url属性
+   f、ajax属性 1、url 2、type 3、dataType 4、data(jQuery:$(''#id).val())  5、success(成功)  6、error(报错 JAVA异常)
+
+
+2、url 
+   a、web.xml  url-pattern  servlet-name(servlet-mapping)  servlet-name(servlet)  servlet-class  后台代码   (注解 找到对应的注解，找到对应的后台代码)
+   b、(继承HttpServlet核心类)根据前台的提交方式 去找对应的get（doget)  post(dopost)
+   c、request(请求)  response(响应)
+   d、定义HttpSession(通过request.getSession()来定义(来实例化的))
+   e、request.getParameter("code")获取我们前台输入code相关的值
+   f、后台代码三层(servlet(控制层)、services(业务层)、dao(持久化层、连接数据库))
+   g、调用iLoginService(业务层) 调用方法并传递参数(可以是任意类型)
+   h、services(接收数据(方法里的参数是按顺序一一对应的))
+   i、调用dao(持久化层) (servlet  到service 一样的道理)
+   j、连接数据库 1、引驱动 2、建立连接 3、获取可以操作数据库的对象 4、得到结果集
+
+
+一、dao 层 common 调用公共类 处理连接
+   1、引入配置文件(jdbc相关的属性(键值对))
+   2、Properties加载
+   3、properties.getProperty("driver");
+   4、Class.froName(driver);(通过反射加载驱动)
+   5、conn=DriverManager.getConnection(url, username, password);(建立连接)
+   6、返回(return conn) 谁调用的就返回谁
+二、dao层(持久化层)
+   1、接收返回值
+   2、sql(语句)(增删改查)
+   3、conn.prepareStatement(sql)获取可以操作sql的对象
+   4、 rs=pst.executeQuery();  结果集
+	   rs.last();
+	   i=rs.getRow();获取的数据行数
+   5、返回(return int) 谁调用的就返回谁
+三、service(业务层)
+   1、接收返回值
+   2、逻辑判断
+   3、返回(return boolean) 谁调用的就返回谁
+四、servlet(控制层)
+   1、接收返回值
+   2、简单判断
+   3、session(会话) 放入值
+   4、返回前台界面(ajax)pw.write("0")
+五、jsp js(jQuery ajax)
+   1、success 接收后台的数据
+   2、简单的逻辑判断
+   3、是否要跳到主页面
+六、主页面(数据显示)
+   1、jstl el 显示 增删改查操作
